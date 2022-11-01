@@ -3,11 +3,11 @@ A wrapper of the perfecto gradle plugin which allows automatic selection of secu
 
 # Usage
 ```
-./gradle-perfecto.py android <cloud-name>
-./gradle-perfecto.py ios <cloud-name>
+./perfecto-espresso.py -c <cloud-name>
+./perfecto-xctext.py -c <cloud-name>
 
-./gradle-perfecto.py ios <cloud-name> -f <path-to-json-config-file> --debug
-./gradle-perfecto.py --help for more
+./perfecto-espresso.py -c <cloud-name> -f <path-to-json-config-file> --debug
+./perfecto-xctext.py --help for more
 ```
 
 The cloud tokens are saved in JSON format in a token storage file.
