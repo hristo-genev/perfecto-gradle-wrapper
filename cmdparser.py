@@ -20,6 +20,18 @@ def parse_args():
         return None, None
 
 
+def load_gradle_config(config_file):
+    try:
+        return json.load(open(config_file))
+    except FileNotFoundError as er:
+        print("ERROR Config file '%s' not found" % config_file)
+    except json.JSONDecodeError as er:
+        print("ERROR Config file does not contain valid JSON. %s" % er)
+    except Exception as ex:
+        print("ERROR %s " % ex)
+    return False
+
+
 def get_command():
     command_template = ""
     cloud = None
@@ -86,11 +98,9 @@ def get_command():
             print("Adding generic argument %s" % arg)
             command_template += " -P%s" % arg
 
-    if not os.path.isfile(config_file):
-        print("ERROR Config file %s not found" % config_file)
-        return False
-
-    gradle_config = json.load(open(config_file))
+    gradle_config = load_gradle_config(config_file)
+    if not gradle_config:
+        sys.exit()
 
     # If token is not set via cmd argument, look in the config
     # if not found, look in the token storage file
