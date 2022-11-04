@@ -102,13 +102,15 @@ def get_command():
     if not gradle_config:
         sys.exit()
 
+    cloud = cloud if cloud else gradle_config["cloudURL"].replace('.perfectomobile.com', '')
+    if not cloud:
+        print("No cloud name specified. Please use the -c parameter")
+        sys.exit()
+
     # If token is not set via cmd argument, look in the config
     # if not found, look in the token storage file
+    token = token if token else gradle_config.get("securityToken", None)
     if not token:
-        token = gradle_config.get("securityToken", None)
-
-    if not token:
-        cloud = cloud if cloud else gradle_config["cloudURL"].replace('.perfectomobile.com', '')
         token = tokens.get_token_for_cloud(cloud)
         if not token:
             sys.exit()
