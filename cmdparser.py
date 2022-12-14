@@ -42,6 +42,7 @@ def get_command():
     print("Arguments: %s" % sys.argv)
     opts, args = parse_args()
     if not opts:
+        print("Invalid arguments provided!")
         sys.exit()
     for opt, arg in opts:
 
