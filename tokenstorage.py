@@ -9,6 +9,7 @@ def get_token_for_cloud(cloud_name):
     :return: The security token, False if not found
     """
     try:
+        print ("Using token storage file: %s" % config.auth_file_path)
         token = json.load(open(config.auth_file_path))["tokens"][cloud_name]
         print("Found token for %s" % cloud_name)
         return token
