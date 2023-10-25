@@ -16,7 +16,8 @@ if gradle_exe is None:
     print("No gradle found. Please add a GRADLE_USER_HOME variable pointing to Gradle's folder")
     sys.exit()
 
-command = "%s perfecto-android-inst %s" % (gradle_exe, cmd)
+virtual_devices_appendix = "-vd" if cmdparser.is_vd_command else ""
+command = "%s perfecto-xctest%s %s" % (gradle_exe, virtual_devices_appendix, cmd)
 print("Executing command:\n%s" % command)
 os.system(command)
 print("Finished execution at %s" % datetime.now())

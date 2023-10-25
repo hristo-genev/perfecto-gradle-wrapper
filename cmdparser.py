@@ -2,16 +2,19 @@ import sys
 import json
 import getopt
 import tokenstorage as tokens
+import argparse
+
+is_vd_command = False
 
 
 def parse_args():
     try:
         print(sys.argv[1:])
         opts, args = getopt.getopt(
-          sys.argv[1:],
-          "ha:f:i:c:m:d:t:P:",
-          ["authFilePath=", "cloud=", "configFileLocation=", "itmsServerUrl=", "testClassNames=", "testMethodNames=",
-           "device=", "securityToken=", "debug", "stacktrace"])
+            sys.argv[1:],
+            "ha:f:i:c:m:d:t:P:v",
+            ["authFilePath=", "cloud=", "configFileLocation=", "itmsServerUrl=", "testClassNames=", "testMethodNames=",
+             "device=", "securityToken=", "debug", "stacktrace"])
         return opts, args
     except getopt.GetoptError as er:
         print('Wrong arguments provided. Exiting.')
@@ -97,6 +100,11 @@ def get_command():
         elif opt.startswith('-P'):
             print("Adding generic argument %s" % arg)
             command_template += " -P%s" % arg
+
+        elif opt in ("-v", "--vd"):
+            global is_vd_command
+            is_vd_command = True
+            print("Running on virtual devices")
 
     gradle_config = load_gradle_config(config_file)
     if not gradle_config:
