@@ -2,24 +2,26 @@ import sys
 import json
 import getopt
 import tokenstorage as tokens
-import argparse
+
 
 is_vd_command = False
 
 
 def parse_args():
+    opts = []
+    args = []
     try:
         print(sys.argv[1:])
         opts, args = getopt.getopt(
             sys.argv[1:],
-            "ha:f:i:c:m:d:t:P:v",
+            "ha:f:i:c:m:d:t:P:v:n:",
             ["authFilePath=", "cloud=", "configFileLocation=", "itmsServerUrl=", "testClassNames=", "testMethodNames=",
-             "device=", "securityToken=", "debug", "stacktrace"])
+             "device=", "securityToken=", "vd", "noincrement", "debug", "stacktrace"])
         return opts, args
     except getopt.GetoptError as er:
         print('Wrong arguments provided. Exiting.')
         print(er)
-        return None, None
+        return opts, args
 
 
 def load_gradle_config(config_file):
@@ -31,15 +33,16 @@ def load_gradle_config(config_file):
         print("ERROR Config file does not contain valid JSON. %s" % er)
     except Exception as ex:
         print("ERROR %s " % ex)
-    return False
+    return None
 
 
 def get_command():
-    command_template = ""
     cloud = None
+    command_template = ""
     config_file = "configFile.json"
     token = None
     device_names = []
+    auto_increment_job_number = True
 
     print("Arguments: %s" % sys.argv)
     opts, args = parse_args()
@@ -84,6 +87,10 @@ def get_command():
         elif opt in ("-m", "--testMethodNames"):
             command_template += " -PtestMethodNames=\"%s\"" % arg
             print("Overwriting testMethodNames: %s" % arg)
+
+        elif opt in ("-n", "--noincrement"):
+            auto_increment_job_number = False
+            print("Disabling auto_increment_job_number")
 
         elif opt in ("-d", "--device"):
             print("Overwriting device id: %s" % arg)
@@ -134,5 +141,14 @@ def get_command():
         with open(config_file, "w") as f:
             print("Saving config modifications")
             f.write(json.dumps(gradle_config, indent=2))
+
+    if auto_increment_job_number:
+        jobnumber = gradle_config.get("jobNumber", -1)
+        if jobnumber > 0:
+            jobnumber = jobnumber + 1
+            gradle_config["jobNumber"] = jobnumber
+            with open(config_file, "w") as f:
+                print("Saving incremented jobNumber %s", jobnumber)
+                f.write(json.dumps(gradle_config, indent=2))
 
     return command_template
