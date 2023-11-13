@@ -33,7 +33,7 @@ with open("latest-xcuitest.log", "w") as w:
         line = line.decode().replace("\n", "")
         if line == "\n" or line == "":
             continue
-        if "reporting.perfectomobile.com/reporting/library" in line:
+        if "reporting.perfectomobile" in line:
             line = line\
                 .replace("reporting.perfectomobile", "app.perfectomobile")\
                 .replace("[", "%5B")\
