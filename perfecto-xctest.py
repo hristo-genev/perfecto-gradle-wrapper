@@ -7,6 +7,7 @@ import webbrowser
 from datetime import datetime
 from gradle_helper import get_gralde_exe
 
+print("")
 print("##################################################")
 print("####    PERFECTO ESPRESSO/XCUITEST WRAPPER   #####")
 print("##################################################")

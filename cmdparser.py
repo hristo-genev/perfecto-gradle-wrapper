@@ -148,7 +148,7 @@ def get_command():
             jobnumber = jobnumber + 1
             gradle_config["jobNumber"] = jobnumber
             with open(config_file, "w") as f:
-                print("Saving incremented jobNumber %s", jobnumber)
+                print("Saving incremented jobNumber %s" % jobnumber)
                 f.write(json.dumps(gradle_config, indent=2))
 
     return command_template
