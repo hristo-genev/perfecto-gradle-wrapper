@@ -18,7 +18,7 @@ cmd = cmdparser.get_command()
 if not cmd:
     sys.exit()
 
-gradle_exe = get_gralde_exe()
+gradle_exe = None #get_gralde_exe()
 if gradle_exe is None:
     print("\033[0;31mNo gradle found. Please add a GRADLE_USER_HOME variable pointing to Gradle's folder\x1b[0m")
     sys.exit()
@@ -28,5 +28,6 @@ command = "%s perfecto-xctest%s %s" % (gradle_exe, virtual_devices_appendix, cmd
 
 result = executor.run(command)
 
+print("Opening report URL in default browser: %s" % result["reportUrl"])
 webbrowser.open(result["reportUrl"])
 
