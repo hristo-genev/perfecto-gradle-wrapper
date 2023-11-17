@@ -59,21 +59,21 @@ def get_command():
             cloud = arg
             hostname = cloud if cloud.endswith(".perfectomobile.com") else cloud + ".perfectomobile.com"
             command_template += " -PcloudURL=\"%s\"" % hostname
-            print("Overwriting cloud name '%s'" % cloud)
+            print("Overwriting cloud name \x1b[38;5;115m%s\x1b[0m" % cloud)
 
         elif opt in ("-f", "--configFileLocation"):
             config_file = arg
             command_template += " -PconfigFileLocation=\"%s\"" % config_file
-            print("Overwriting config file name '%s'" % config_file)
+            print("Overwriting config file name \x1b[38;5;115m%s\x1b[0m" % config_file)
 
         elif opt in ("-i", "--itmsServerUrl"):
             if arg != "https://test-executor.perfectomobile.com":
                 command_template += " -PitmsServerUrl=\"%s\"" % arg
-            print("Using none-default server: %s" % arg)
+            print("Using none-default server: \x1b[38;5;115m%s\x1b[0m" % arg)
 
         elif opt in ("-a", "--authFilePath"):
             auth_file_path = arg
-            print("Using custom token storage file: %s" % auth_file_path)
+            print("Using custom token storage file: \x1b[38;5;115m%s\x1b[0m" % auth_file_path)
 
         elif opt in ("-t", "--securityToken"):
             token = arg
@@ -82,30 +82,30 @@ def get_command():
 
         elif opt in ("-c", "--testClassNames"):
             command_template += " -PtestClassNames=\"%s\"" % arg
-            print("Overwriting testClassNames: %s" % arg)
+            print("Overwriting testClassNames: \x1b[38;5;115m%s\x1b[0m" % arg)
 
         elif opt in ("-m", "--testMethodNames"):
             command_template += " -PtestMethodNames=\"%s\"" % arg
-            print("Overwriting testMethodNames: %s" % arg)
+            print("Overwriting testMethodNames: \x1b[38;5;115m%s\x1b[0m" % arg)
 
         elif opt in ("-n", "--noincrement"):
             auto_increment_job_number = False
             print("Disabling auto_increment_job_number")
 
         elif opt in ("-d", "--device"):
-            print("Overwriting device id: %s" % arg)
+            print("Overwriting device id: \x1b[38;5;115m%s\x1b[0m" % arg)
             device_names.append(arg)
 
         elif opt in "--debug":
             command_template += " --debug"
-            print("Overwriting debug: True")
+            print("Enabled debug")
 
         elif opt in ("-s", "--stacktrace"):
-            print("Overwriting stacktrace: True")
+            print("Enabled stacktrace")
             command_template += " --stacktrace"
 
         elif opt.startswith('-P'):
-            print("Adding generic argument %s" % arg)
+            print("Adding generic argument \x1b[38;5;115m%s\x1b[0m" % arg)
             command_template += " -P%s" % arg
 
         elif opt in ("-v", "--vd"):
@@ -148,7 +148,7 @@ def get_command():
             jobnumber = jobnumber + 1
             gradle_config["jobNumber"] = jobnumber
             with open(config_file, "w") as f:
-                print("Saving incremented jobNumber %s" % jobnumber)
+                print("Saving incremented jobNumber \x1b[38;5;115m%s\x1b[0m" % jobnumber)
                 f.write(json.dumps(gradle_config, indent=2))
 
     return command_template

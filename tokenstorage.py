@@ -2,6 +2,7 @@ import json
 import config
 import configparser
 
+
 def get_token_for_cloud(cloud_name):
     """
     Reads token from token storage file and returns it.
@@ -11,7 +12,7 @@ def get_token_for_cloud(cloud_name):
     token = None
 
     try:
-        print("Using token storage file: %s" % config.auth_file_path)
+        print("Using token storage file: \x1b[38;5;115m%s\x1b[0m" % config.auth_file_path)
         if config.auth_file_path.endswith(".json"):
             token = json.load(open(config.auth_file_path))["tokens"][cloud_name]
         elif config.auth_file_path.endswith(".ini"):
@@ -34,7 +35,7 @@ def get_token_for_cloud(cloud_name):
         print("ERROR %s" % er)
 
     if token:
-        print("Found token for %s" % cloud_name)
+        print("Found token for \x1b[38;5;115m%s\x1b[0m" % cloud_name)
     else:
         print("Token not found for cloud %s" % cloud_name)
     return token
