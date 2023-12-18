@@ -3,8 +3,9 @@ import json
 import getopt
 import tokenstorage as tokens
 
-
 is_vd_command = False
+is_espresso = False
+is_xcuitest = False
 
 
 def parse_args():
@@ -132,6 +133,11 @@ def get_command():
 
     command_template += " -PsecurityToken=\"%s\"" % token
 
+    global is_xcuitest
+    global is_espresso
+    is_xcuitest = gradle_config["appPath"].endswith("ipa")
+    is_espresso = not is_xcuitest
+
     if len(device_names) > 0:
         print("Adding devices to config file")
         gradle_config["devices"] = []
@@ -143,12 +149,12 @@ def get_command():
             f.write(json.dumps(gradle_config, indent=2))
 
     if auto_increment_job_number:
-        jobnumber = gradle_config.get("jobNumber", -1)
-        if jobnumber > 0:
-            jobnumber = jobnumber + 1
-            gradle_config["jobNumber"] = jobnumber
+        job_number = gradle_config.get("jobNumber", -1)
+        if job_number > 0:
+            job_number = job_number + 1
+            gradle_config["jobNumber"] = job_number
             with open(config_file, "w") as f:
-                print("Saving incremented jobNumber \x1b[38;5;115m%s\x1b[0m" % jobnumber)
+                print("Saving incremented jobNumber \x1b[38;5;115m%s\x1b[0m" % job_number)
                 f.write(json.dumps(gradle_config, indent=2))
 
     return command_template

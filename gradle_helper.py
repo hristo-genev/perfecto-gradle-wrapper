@@ -1,6 +1,7 @@
 import os
 import sys
 
+
 def get_gralde_exe():
     '''
     Returns gradle executable
