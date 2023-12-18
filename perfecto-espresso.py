@@ -7,7 +7,7 @@ import executor
 from gradle_helper import get_gralde_exe
 
 command_arguments = cmdparser.get_command()
-if not command_arguments:
+if not command_arguments or not cmdparser.is_espresso:
     sys.exit()
 
 gradle_exe = get_gralde_exe()
@@ -21,4 +21,5 @@ command = "%s perfecto-android-inst%s %s" % (gradle_exe, virtual_devices_appendi
 result = executor.run(command)
 
 print("Opening report URL in default browser: %s" % result["reportUrl"])
-webbrowser.open(result["reportUrl"])
+if result["reportUrl"]:
+    webbrowser.open(result["reportUrl"])
