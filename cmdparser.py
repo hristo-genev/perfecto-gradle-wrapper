@@ -135,8 +135,8 @@ def get_command():
 
     global is_xcuitest
     global is_espresso
-    is_xcuitest = gradle_config["appPath"].endswith("ipa")
-    is_espresso = not is_xcuitest
+    is_xcuitest = gradle_config.get("appPath") and gradle_config["appPath"].endswith("ipa")
+    is_espresso = gradle_config.get("apkPath") or (gradle_config.get("appPath") and not gradle_config["appPath"].endswith("ipa"))
 
     if len(device_names) > 0:
         print("Adding devices to config file")

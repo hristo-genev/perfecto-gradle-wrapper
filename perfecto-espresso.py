@@ -7,7 +7,12 @@ import executor
 from gradle_helper import get_gralde_exe
 
 command_arguments = cmdparser.get_command()
-if not command_arguments or not cmdparser.is_espresso:
+if not command_arguments:
+    print("No arguments provided")
+    sys.exit()
+
+if not cmdparser.is_espresso:
+    print("Running espresso test but no espresso config found!")
     sys.exit()
 
 gradle_exe = get_gralde_exe()
