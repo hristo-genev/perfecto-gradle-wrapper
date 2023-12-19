@@ -18,8 +18,8 @@ def run(command):
                 if line == "\n" or line == "":
                     continue
                 if "reporting.perfectomobile" in line:
-                    line = logformatter.fix_reporting_url(line)
                     report_url = line
+                    # line = logformatter.fix_reporting_url(line)
                 if "Your management id is" in line:
                     line = logformatter.fix_coloring(line)
                 log.message(line)
