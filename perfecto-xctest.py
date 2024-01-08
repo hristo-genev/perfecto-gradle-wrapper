@@ -29,7 +29,7 @@ if gradle_exe is None:
     sys.exit()
 
 virtual_devices_appendix = "-vd" if cmdparser.is_vd_command else ""
-command = "%s perfecto-xctest%s %s" % (gradle_exe, virtual_devices_appendix, cmd)
+command = "%s perfecto-xctest%s %s" % (gradle_exe, virtual_devices_appendix, command_arguments)
 
 result = executor.run(command)
 
