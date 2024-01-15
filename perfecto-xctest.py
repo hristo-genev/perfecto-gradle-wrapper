@@ -11,7 +11,7 @@ import executor
 
 print("")
 print("##################################################")
-print("####    PERFECTO ESPRESSO/XCUITEST WRAPPER   #####")
+print("####    PERFECTO XCUITEST WRAPPER   #####")
 print("##################################################")
 print("")
 command_arguments = cmdparser.get_command()
@@ -20,7 +20,7 @@ if not command_arguments:
     sys.exit()
 
 if not cmdparser.is_xcuitest:
-    print("Running espresso test but no espresso config found!")
+    print("Running xcuitest but no xcuitest config found!")
     sys.exit()
 
 gradle_exe = get_gralde_exe()

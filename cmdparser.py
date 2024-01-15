@@ -135,7 +135,7 @@ def get_command():
 
     global is_xcuitest
     global is_espresso
-    is_xcuitest = gradle_config.get("appPath") and gradle_config["appPath"].endswith("ipa")
+    is_xcuitest = gradle_config.get("appPath") and (gradle_config["appPath"].endswith("ipa") or gradle_config["appPath"].endswith("app"))
     is_espresso = gradle_config.get("apkPath") or (gradle_config.get("appPath") and not gradle_config["appPath"].endswith("ipa"))
 
     if len(device_names) > 0:
