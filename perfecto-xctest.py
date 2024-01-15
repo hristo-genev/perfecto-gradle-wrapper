@@ -33,7 +33,7 @@ command = "%s perfecto-xctest%s %s" % (gradle_exe, virtual_devices_appendix, com
 
 result = executor.run(command)
 
-print("Opening report URL in default browser: %s" % result["reportUrl"])
-if result["reportUrl"]:
+print("Report URL: %s" % result["reportUrl"])
+if result["success"]:
     webbrowser.open(result["reportUrl"])
 

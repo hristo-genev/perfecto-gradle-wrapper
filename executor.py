@@ -8,8 +8,8 @@ import logger
 def run(command):
     success = True
     report_url = None
-    try:
-        with open("perfecto-gradle-wrapper.log", "a") as write_handle:
+    with open("perfecto-gradle-wrapper.log", "a") as write_handle:
+        try:
             log = logger.Log(write_handle)
             log.message("Executing command: \x1b[38;5;115m%s\x1b[0m" % command)
             process = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE)
@@ -23,8 +23,11 @@ def run(command):
                 if "Your management id is" in line:
                     line = logformatter.fix_coloring(line)
                 log.message(line)
-    except Exception as ex:
-        log.message(ex)
-        success = False
+        except KeyboardInterrupt:
+            log.message("Keyboard interrupted! Stopping execution!")
+            success = False
+        except Exception as ex:
+            log.message(ex)
+            success = False
 
     return {"success": success, "reportUrl": report_url}
