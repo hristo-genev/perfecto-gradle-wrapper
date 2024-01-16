@@ -34,6 +34,6 @@ command = "%s perfecto-xctest%s %s" % (gradle_exe, virtual_devices_appendix, com
 result = executor.run(command)
 
 print("Report URL: %s" % result["reportUrl"])
-if result["success"]:
+if result["success"] and result["reportUrl"]:
     webbrowser.open(result["reportUrl"])
 

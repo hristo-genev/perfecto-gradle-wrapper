@@ -31,6 +31,6 @@ command = "%s perfecto-android-inst%s %s" % (gradle_exe, virtual_devices_appendi
 result = executor.run(command)
 
 print("Report URL: %s" % result["reportUrl"])
-if result["success"]:
+if result["success"] and result["reportUrl"]:
     webbrowser.open(result["reportUrl"])
 
