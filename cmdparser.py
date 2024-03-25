@@ -135,7 +135,7 @@ def get_command():
 
     global is_xcuitest
     global is_espresso
-    is_xcuitest = gradle_config.get("appPath") and (gradle_config["appPath"].endswith("ipa") or gradle_config["appPath"].endswith("app"))
+    is_xcuitest = gradle_config.get("xctestProductsPath") or (gradle_config.get("appPath") and (gradle_config["appPath"].endswith("ipa") or gradle_config["appPath"].endswith("app")))
     is_espresso = gradle_config.get("apkPath") or (gradle_config.get("appPath") and not gradle_config["appPath"].endswith("ipa"))
 
     if len(device_names) > 0:
@@ -149,7 +149,7 @@ def get_command():
             f.write(json.dumps(gradle_config, indent=2))
 
     if auto_increment_job_number:
-        job_number = gradle_config.get("jobNumber", -1)
+        job_number = int(gradle_config.get("jobNumber", -1))
         if job_number > 0:
             job_number = job_number + 1
             gradle_config["jobNumber"] = job_number
