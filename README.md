@@ -8,7 +8,10 @@ A wrapper of the perfecto gradle plugin which allows:
 
 # Usage
 ```
+./perfecto-espresso.py
 ./perfecto-espresso.py -c <cloud-name>
+
+./perfecto-xctext.py
 ./perfecto-xctext.py -c <cloud-name>
 
 ./perfecto-espresso.py -c <cloud-name> -f <path-to-json-config-file> --debug
