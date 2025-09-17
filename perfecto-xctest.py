@@ -4,9 +4,7 @@ import sys
 import cmdparser
 import subprocess
 import webbrowser
-from datetime import datetime
 from gradle_helper import get_gralde_exe
-# from executor import run
 import executor
 
 print("")
@@ -32,6 +30,9 @@ virtual_devices_appendix = "-vd" if cmdparser.is_vd_command else ""
 command = "%s perfecto-xctest%s %s" % (gradle_exe, virtual_devices_appendix, command_arguments)
 
 result = executor.run(command)
+if result["retry"]:
+    print("Running again due to possible error in previous attempt")
+    result = executor.run(command)
 
 print("Report URL: %s" % result["reportUrl"])
 if result["success"] and result["reportUrl"]:

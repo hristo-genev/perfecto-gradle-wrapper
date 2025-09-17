@@ -14,7 +14,7 @@ def get_token_for_cloud(cloud_name):
     try:
         print("Using token storage file: \x1b[38;5;115m%s\x1b[0m" % config.auth_file_path)
         if config.auth_file_path.endswith(".json"):
-            token = json.load(open(config.auth_file_path))["tokens"][cloud_name]
+            token = json.load(open(config.auth_file_path))[cloud_name]
         elif config.auth_file_path.endswith(".ini"):
             tokens_storage = configparser.ConfigParser()
             tokens_storage.read(config.auth_file_path)
